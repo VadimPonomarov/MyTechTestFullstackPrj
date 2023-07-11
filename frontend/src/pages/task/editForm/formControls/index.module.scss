@@ -1,0 +1,14 @@
+.error {
+  text-align: left;
+  width: 100%;
+  color: red;
+  font-size: 11px;
+  padding: 2px;
+  padding-left: 0 !important;
+}
+
+.date-box{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}

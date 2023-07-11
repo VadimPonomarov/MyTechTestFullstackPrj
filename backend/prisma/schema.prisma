@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int        @id @default(autoincrement())
+  email      String     @unique @db.VarChar(1)
+  password   String     @db.VarChar(1)
+  role       userRole
+  categories Category[]
+
+  @@map("users")
+}
+
+model Category {
+  id          Int      @id @unique @default(autoincrement())
+  name        String   @db.VarChar(1)
+  dateCreated DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      Int
+  tasks       Task[]
+
+  @@map("categories")
+}
+
+model Task {
+  id          Int      @id @unique @default(autoincrement())
+  name        String   @db.VarChar(1)
+  dateStart   DateTime @db.Date
+  dateEnd     DateTime @db.Date
+  description String?
+  Category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId  Int
+
+  @@map("tasks")
+}
+
+model Token {
+  id        Int      @id @unique @default(autoincrement())
+  token     String   @unique
+  type      JwtEnum
+  createdAt DateTime @default(now())
+
+  @@map("tokens")
+}
+
+enum userRole {
+  USER
+  ADMIN
+}
+
+enum JwtEnum {
+  ACCESS
+  REFRESH
+  // ACTIVATE
+}

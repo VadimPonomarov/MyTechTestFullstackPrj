@@ -1,0 +1,9 @@
+$box-w-size: 200px;
+.main_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: $box-w-size;
+  height: $box-w-size;
+}

@@ -1,0 +1,11 @@
+{
+  "name": "technical_task_fullstack",
+  "version": "1.0.0",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "scripts": {
+    "build": "docker-compose build",
+    "start": "docker-compose up"
+  }
+}

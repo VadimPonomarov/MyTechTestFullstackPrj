@@ -1,0 +1,38 @@
+//$box-w-size: 300px;
+.main_box {
+  display: flex;
+  width: 100%;
+  height: 80vh;
+  margin-top: 10px;
+}
+
+.create_edit_box {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  align-items: flex-start;
+  justify-content: right;
+  overflow: hidden;
+}
+
+.dialog_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //width: $box-w-size;
+  //height: $box-w-size;
+  margin: 2px;
+  padding: 2px;
+  overflow: hidden;
+}
+/*.dialog_content {
+  max-width: $box-w-size;
+  max-height: $box-w-size;
+}*/
+
+.create_edit_dialog_actions {
+  display: flex;
+  justify-content: center !important;
+  gap: 20px;
+}

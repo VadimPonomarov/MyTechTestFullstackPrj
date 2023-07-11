@@ -1,0 +1,12 @@
+* {
+    font-family: Roboto, 'Courier New', Courier, monospace;
+}
+
+html,
+body,
+#app {
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 2px;
+}
