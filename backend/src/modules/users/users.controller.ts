@@ -5,29 +5,20 @@ import {
     Get,
     HttpStatus,
     Param,
-    Patch,
     Post,
     Put,
     Res,
-    UseGuards
 } from "@nestjs/common";
 import {Response} from "express";
 import {UsersService} from "./users.service";
 import {CreateUserDto} from "./dto/createUser.dto";
-import {PrismaService} from "../../core/prisma.service";
 import {UpdateUserDto} from "./dto/updateUser.dto";
-import {RolesGuard} from "./auth/guards/roles.guard";
-import {Roles} from "./auth/decorators/roles.decorator";
-import {UserEnums} from "./constants/user.enums";
 
-@UseGuards(RolesGuard)
 @Controller("users")
 export class UsersController {
-    constructor(private usersService: UsersService,
-                private prismaService: PrismaService) {
+    constructor(private usersService: UsersService) {
     }
 
-    // @Roles(UserEnums.ADMIN)
     @Get()
     async getAll(@Res() res: Response): Promise<void> {
         try {
@@ -57,7 +48,6 @@ export class UsersController {
     @Post()
     async create(@Body() body: CreateUserDto, @Res() res: Response): Promise<any> {
         try {
-
             const result = await this.usersService.create(body);
             res.status(HttpStatus.OK).send({message: "Success", data: result});
         } catch (e) {
@@ -69,7 +59,8 @@ export class UsersController {
     }
 
     @Put(":userId")
-    async update(@Param("userId") userId: string, @Body() body: UpdateUserDto, @Res() res: Response): Promise<void> {
+    async update(@Param("userId") userId: string,
+                 @Body() body: UpdateUserDto, @Res() res: Response): Promise<void> {
         try {
             const result = await this.usersService.update(userId, body);
             res.status(HttpStatus.OK).send({message: "Success", data: result});
