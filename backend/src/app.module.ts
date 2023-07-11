@@ -1,11 +1,8 @@
 import {Module} from '@nestjs/common';
-import {AppController} from './app.controller';
-import {AppService} from './app.service';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {UsersModule} from './modules/users/users.module';
 import {CategoriesModule} from './modules/categories/categories.module';
 import {TasksModule} from './modules/tasks/tasks.module';
-import configuration from './config/configuration';
 import {PrismaClient} from "@prisma/client";
 import {JwtModule} from "@nestjs/jwt";
 import {ScheduleModule} from "@nestjs/schedule";
@@ -20,8 +17,7 @@ import {ScheduleModule} from "@nestjs/schedule";
         CategoriesModule,
         TasksModule
     ],
-    controllers: [AppController],
-    providers: [AppService, ConfigService],
+    providers: [ConfigService],
 })
 export class AppModule {
 }

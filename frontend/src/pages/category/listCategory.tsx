@@ -14,7 +14,7 @@ import {getAll} from "../../storage/slices/category-slice/categorySlice";
 const _ListCategory = () => {
     const dispatch = useAppDispatch()
     const {isAuth} = useAppSelector(state => state.auth)
-    const {categories, currentCategory: {id}} = useAppSelector(state => state.category)
+    const {currentCategory: {id}} = useAppSelector(state => state.category)
     const yesNoDialogProps: IProps = {
         openButtonId: 'openButtonFormEditCategory',
         dialogTitle: id ? 'Category edit form' : 'Category add form',
@@ -24,8 +24,12 @@ const _ListCategory = () => {
         contentText: undefined
     }
     useEffectOnce(() => {
-        if (isAuth)
-            dispatch(getAll())
+        try {
+            if (isAuth)
+                dispatch(getAll())
+        } catch (e) {
+
+        }
     })
 
     return (

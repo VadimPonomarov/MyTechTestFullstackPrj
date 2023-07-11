@@ -1,21 +1,19 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React from 'react';
 
 import {Box, Container, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {motion} from "framer-motion";
 import {useForm} from "react-hook-form";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
-import {login, useAppDispatch, useAppSelector} from "../../../storage";
+import {login, useAppDispatch } from "../../../storage";
 import {ILoginInputs} from "../../../storage/slices/auth-slice/interfaces";
 import css from "../index.module.scss";
 
 
 export const Login = () => {
-    const {isAuth} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const {register, handleSubmit, reset, formState: {errors, isValid}, getValues} =
+    const {register, handleSubmit, reset, formState: {errors, isValid}} =
         useForm<ILoginInputs>({
             mode: 'onChange',
         });
@@ -23,10 +21,10 @@ export const Login = () => {
     const onSubmit = async (body: ILoginInputs) => {
         try {
             await dispatch(login(body))
+            navigate('/categories')
+        } catch (e) {
             const empty: ILoginInputs = {email: '', password: ''}
             reset(empty)
-        } catch (e) {
-            navigate('/login')
         }
     };
 

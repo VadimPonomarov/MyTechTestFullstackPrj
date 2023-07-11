@@ -1,7 +1,6 @@
 import {
     Injectable,
     NotAcceptableException,
-    UnauthorizedException
 } from "@nestjs/common";
 import {PrismaService} from "../../../core/prisma.service";
 import JwtProvider from "./providers/jwt.provider";
@@ -25,12 +24,16 @@ export class AuthService {
 
     async logIn(loginDto: LogInDto): Promise<JwtDto[]> {
         try {
-            const _user = await this.prismaService.user.findUniqueOrThrow({
-                where: {email: loginDto.email}
-            });
+            const _user =
+                await this.prismaService.user.findUniqueOrThrow({
+                    where: {email: loginDto.email}
+                });
 
-            const isValid = await compare(loginDto.password, _user.password);
-            if (!isValid) throw new NotAcceptableException();
+            const isValid =
+                await compare(loginDto.password, _user.password);
+
+            if (!isValid)
+                throw new NotAcceptableException();
 
             const jwtPayload: JwtPayloadDto = {
                 id: _user.id,
@@ -47,7 +50,9 @@ export class AuthService {
 
     async refreshTokenPair(jwt: RefreshTokenPairDto): Promise<JwtDto[]> {
         try {
-            const payLoadData = await this.jwtService.verify(jwt.token, {secret: config().jwt.secret})
+            const payLoadData =
+                await this.jwtService.verify(jwt.token, {secret: config().jwt.secret})
+
             return this.jwtProvider.getTokenPair({
                 id: payLoadData.id,
                 email: payLoadData.email,

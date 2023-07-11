@@ -1,7 +1,6 @@
 import React, {memo, useEffect} from 'react';
 
 import Box from "@mui/material/Box";
-import {useForm} from "react-hook-form";
 
 import {CancelSaveDialog} from './canselSaveDialog/cancelSaveDialog';
 import {TaskEditForm} from "./editForm/taskEditForm";
@@ -25,21 +24,10 @@ const _ListTask = () => {
     const {tasks} = useAppSelector(state => state.task)
 
     const {
-        isSubmit,
         currentCategory: {
             id: categoryId
         }
     } = useAppSelector(state => state.category)
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: {errors, isValid},
-        getValues
-    } =
-        useForm<ITask>({
-            mode: 'onChange',
-        });
 
     useEffect(() => {
         if (categoryId)

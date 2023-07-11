@@ -16,18 +16,19 @@ services:
       - ./backend:/app
     command: >
       sh -c  "npm run prisma:migrate:init && npm run start:dev"
-  
-  
-  
 
   db:
-    image: mysql:8.0
-    restart: on-failure
-    env_file:
-      - /backend/.env
-    volumes:
-      - ./mysql:/var/lib/mysql
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: tech_test
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   web:
     image: nginx:alpine
@@ -37,5 +38,5 @@ services:
     volumes:
       - ./client:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    command: >
-      - sh -c "npm run build --prefix frontend"
+#    command: >
+#      - sh -c "npm run build --prefix frontend"
