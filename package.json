@@ -5,7 +5,7 @@
     "concurrently": "^8.2.0"
   },
   "scripts": {
-    "build": "docker-compose build",
-    "start": "docker-compose up"
+    "build": "docker-compose build && npm i --prefix frontend",
+    "start": "npm run build --prefix frontend && docker-compose up"
   }
 }
