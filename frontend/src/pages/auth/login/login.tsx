@@ -4,7 +4,7 @@ import {Box, Container, TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {motion} from "framer-motion";
 import {useForm} from "react-hook-form";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import {login, useAppDispatch } from "../../../storage";
 import {ILoginInputs} from "../../../storage/slices/auth-slice/interfaces";
@@ -13,6 +13,7 @@ import css from "../index.module.scss";
 
 export const Login = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate()
     const {register, handleSubmit, reset, formState: {errors, isValid}} =
         useForm<ILoginInputs>({
             mode: 'onChange',
